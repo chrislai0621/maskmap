@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="口罩地圖資訊">
+    <meta property="og:description" content="來查查你家附近剩餘多少口罩吧">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:site_name" content="口罩地圖資訊">
+    <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content="#" />
+    <meta property="og:title" content="口罩地圖資訊" />
+    <meta property="og:description" content="來查查你家附近剩餘多少口罩吧" />
+    <title>口罩地圖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="stylesheets/all.css"/>
+</head>
+
+<body>
+    <div class="d-flex  flex-column flex-md-row map">
+        <div class="map-title mr-8">
+            <div class="display-4 text-dark mb-9">Mask Map</div>
+            <div class="display-3 text-dark text-center font-weight-bold letter-spacing-18px pb-12"><span
+                    class="text-primary">口罩</span>地圖</div>
+        </div>
+        <div class="map-content">
+            <div class="map-content-aside border-right scrollbar">
+                <div class="p-5 bg-primary sticky-top">
+                    <div class="d-flex justify-content-between text-white  ">
+                        <div class="h1 mr-6" id="day"></div>
+                        <div class="d-flex flex-column align-items-end">
+                            <div class="h5" id="date"></div>
+                            <small>身份證末號<span
+                                    class="font-size-11px font-weight-bold text-yellow" id="idCard"></span>可購買</small>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control search-name"  placeholder="搜尋區域、地址、藥局" aria-label="搜尋區域、地址、藥局"
+                            aria-describedby="搜尋區域、地址、藥局">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-search btn-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="map-list">
+                </div>               
+            </div>
+            <div class="map-content-main">
+                <div class="main-menu-icon  d-none d-md-block"><i class="fas fa-chevron-right"></i></div>
+                <div class="main-menu-icon  d-block d-md-none"><i class="fas fa-chevron-down"></i></div>
+                <div id="mapId"></div>
+            </div>
+        </div>
+        <script src="javascripts/vendor.js"></script>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+        <script src="javascripts/all.js"></script>
+        
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+body{
+    font-family:'Segoe UI';
+}
+.map
+{
+    
+    height:630px;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    padding-left:30px;
+    padding-right:30px;
+    .map-title
+    {
+         text-align: end;
+        @include pad()
+        {
+            -webkit-writing-mode: vertical-lr;
+            writing-mode: vertical-lr;
+           
+        }
+    }
+    
+} 
+.map-content
+{
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 600px;
+        border:15px solid #333333 ;
+        box-shadow: 10px 10px 20px #00000029;
+        border-radius: 17px;
+        opacity: 1;
+        .map-content-aside{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        height:100%;
+        transform: translateX(0px); 
+        background-color: white;
+        }
+        .map-content-main
+        {
+             position: relative;
+            width: 100%;
+            height:100%; 
+            transform: translateX(255px);
+            background-color: white;
+
+            .main-menu-icon
+            {
+                position: absolute;
+                background-color: theme-color('primary');
+                color:white;
+                z-index:3;
+                font-weight: 300;
+                text-align:center;    
+                width: 49px ;
+                height: 17px;
+                padding:2px;
+                top:0;
+                left:45%;    
+                border-radius: 0px 0px 5px 5px;    
+                
+                @include pad()
+                {
+                    width: 17px ;
+                    height: 49px;
+                    line-height: 49px;
+                    border-radius: 0px 5px 5px 0px;
+                    padding:0px;
+                    top:90px;
+                    left:0;         
+                }
+            }
+
+        }
+        
+        .close .map-content-aside{
+            transform: translateY(-100%);   
+            @include pad()
+            {
+                transform: translateX(0px);
+            }
+        } 
+        .close .map-content-main{
+            transform: translateY(0);
+            @include pad()
+            {
+                transform: translateX(0px);
+            }
+        }
+}

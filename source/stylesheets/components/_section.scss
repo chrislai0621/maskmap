@@ -1,0 +1,13 @@
+#mapId { width: 100%;height: 100%; }
+
+.icon
+{
+    color:theme-color('primary');
+    text-decoration: none;
+}
+.icon:hover,.icon:active
+{
+     color:theme-color('secondary');
+    text-decoration: none;
+
+}

@@ -1,0 +1,62 @@
+@mixin destop-below{
+	@media (min-width: 1024px){
+		@content
+	}
+}
+@mixin pad{
+	@media (min-width: 768px){
+		@content
+	}
+}
+@mixin iphone{
+	@media (min-width: 568px){
+		@content
+	}
+}
+@mixin iphone6plus{
+	@media (min-width: 414px){
+		@content
+	}
+}
+@mixin mobile480{
+	@media (min-width: 480px){
+		@content
+	}
+}
+@mixin iphone5{
+	@media (min-width: 320px){
+		@content
+	}
+}
+
+@mixin hidden-a-text($width,$height,$image-url)
+{
+    width: $width;
+	height: $height;
+	background: url($image-url) no-repeat;
+	display: block;
+	text-indent: 101%;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+@mixin border-box-css
+{
+	-moz-box-sizing: border-box; /* Firefox */
+	-webkit-box-sizing: border-box;/* Safari */
+	box-sizing: border-box;
+}
+
+@mixin menu-a-font-1em($font-color)
+{
+   display: block;
+   height: 40px; /*40px以上是使用者手指一般可點擊的範圍*/
+   line-height: 40px;
+   padding:0.5em 1em;
+   font-size: 1em;
+   color: $font-color;
+   text-decoration: none;
+}
+@mixin btn{
+    height: 40px !important;/*40px以上是使用者手指一般可點擊的範圍*/
+}
