@@ -1,28 +1,30 @@
-//變數宣告
+
+//#region 宣告變數與element
 var _data = []; //api下載的資料
 var _date = new Date();
-var menuIcon = document.querySelector('.main-menu-icon');
-var elContent = document.querySelector('.map-content');
+var elMenuIcon = document.querySelector('.main-menu-icon');
+var elSideBar = document.querySelector('.map-content-aside');
+var elMapContent = document.querySelector('.map-content-main');
 var btnSearch = document.querySelector('.btn-search');
-var mapList = document.getElementById('map-list');
-//設定一個地圖，將地圖定位在#map這個div上
-//先定位在center的經緯度，zoom在13
+var elMapList = document.getElementById('map-list');
+//設定一個地圖，將地圖定位在#mapId這個div上
+//先定位在center的經緯度，zoom在15
 var elmap = L.map('mapId', {
     center: [25.0677307, 121.4750888],
-    zoom: 13
+    zoom: 15
 });
 var markers = new L.MarkerClusterGroup();// 新增一個圖層，這圖層專門放 icon 群組
-//init
+//#endregion
+
 init();
 
-function init()
-{
+//#region  init初始化
+function init() {
     getData();
     setDate(_date);
     setChineseDayAndID(_date.getDay());
-    setMap();   
+    setMap();
 }
-
 //拉口罩api資料回來
 function getData() {
     var xhr = new XMLHttpRequest();
@@ -31,12 +33,12 @@ function getData() {
     //readystate = 4時才會觸發onload
     xhr.onload = function () {
         if (xhr.status == 200) {
-            let xhrData = JSON.parse(xhr.responseText);           
-            let records= xhrData.features;
+            let xhrData = JSON.parse(xhr.responseText);
+            let records = xhrData.features;
             for (let i = 0; i < records.length; i++) {
-                let pharmacy = generatepharmacy(records[i].properties, records[i].geometry);
-                _data.push(pharmacy); 
-                addMarker(pharmacy)               
+                let pharmacy = generatePharmacy(records[i].properties, records[i].geometry);
+                _data.push(pharmacy);
+                addMarker(pharmacy)
             }
             elmap.addLayer(markers);
             //console.log('getData =' + _data);
@@ -49,6 +51,76 @@ function getData() {
         }
     }
 }
+function generatePharmacy(properties, geometry) {
+    let pharmacy = {};
+    pharmacy.name = properties.name;
+    pharmacy.phone = properties.phone;
+    pharmacy.address = properties.address;
+    pharmacy.mask_adult = properties.mask_adult;
+    pharmacy.mask_child = properties.mask_child;
+    pharmacy.note = properties.note;
+    pharmacy.county = properties.county;
+    pharmacy.town = properties.town;
+    pharmacy.cunli = properties.cunli;
+    pharmacy.coordinates = geometry.coordinates;
+    return pharmacy;
+}
+function setChineseDayAndID(day) {
+
+    let chDay = '';
+    let idCard = '';
+    switch (day) {
+        case 0:
+            chDay = '星期日';
+            idCard = '無限制'
+            break;
+        case 1:
+            chDay = '星期一';
+            idCard = '1,3,5,7,9';
+            break;
+        case 2:
+            chDay = '星期二';
+            idCard = '0,2,4,6,8';
+            break;
+        case 3:
+            chDay = '星期三';
+            idCard = '1,3,5,7,9';
+            break;
+        case 4:
+            chDay = '星期四';
+            idCard = '0,2,4,6,8';
+            break;
+        case 5:
+            chDay = '星期五';
+            idCard = '1,3,5,7,9';
+            break;
+        case 6:
+            chDay = '星期六';
+            idCard = '0,2,4,6,8';
+            break;
+    }
+    document.getElementById('day').textContent = chDay;
+    document.getElementById('idCard').textContent = idCard;
+}
+function setDate(d) {
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    var output = d.getFullYear() + '-' +
+        (month < 10 ? '0' : '') + month + '-' +
+        (day < 10 ? '0' : '') + day;
+    document.getElementById('date').textContent = output;
+
+}
+function setMap() {
+    //載入openstreetmap圖資
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 16,
+        attribution: 'Chris makes'
+    }).addTo(elmap);
+}
+//#endregion
+
+//#region 處理畫面的method
 function updateView() {    
     let searchName = document.querySelector('.search-name').value;
     let htmlStr = '';
@@ -95,7 +167,7 @@ function updateView() {
             </div>` 
          
     }
-    mapList.innerHTML = htmlStr;
+    elMapList.innerHTML = htmlStr;
 }
 function getClassName(qty) {
     let className = 'remaining-zero';
@@ -107,74 +179,6 @@ function getClassName(qty) {
         className = 'remaining-seldom';
     }
     return className;
-}
-function generatepharmacy(properties,geometry) {
-    let pharmacy = {};
-    pharmacy.name = properties.name;
-    pharmacy.phone = properties.phone;
-    pharmacy.address = properties.address;
-    pharmacy.mask_adult = properties.mask_adult;
-    pharmacy.mask_child = properties.mask_child;
-    pharmacy.note = properties.note;
-    pharmacy.county = properties.county;
-    pharmacy.town = properties.town;
-    pharmacy.cunli = properties.cunli;
-    pharmacy.coordinates = geometry.coordinates;
-    return pharmacy;
-}
-
-function setChineseDayAndID(day)
-{
-       
-    let chDay ='';
-    let idCard= '';
-    switch (day) {
-        case 0:
-            chDay ='星期日';
-            idCard ='無限制'
-            break;
-        case 1:
-            chDay = '星期一';
-            idCard = '1,3,5,7,9';
-            break;
-        case 2:
-            chDay = '星期二';
-            idCard = '0,2,4,6,8';
-            break;
-        case 3:
-            chDay = '星期三';
-            idCard = '1,3,5,7,9';
-            break;
-        case 4:
-            chDay = '星期四';
-            idCard = '0,2,4,6,8';
-            break;
-        case 5:
-            chDay = '星期五';
-            idCard = '1,3,5,7,9';
-            break;
-        case 6:
-            chDay = '星期六';
-            idCard = '0,2,4,6,8';
-            break;    
-    }
-    document.getElementById('day').textContent = chDay;
-    document.getElementById('idCard').textContent = idCard;
-}
-function setDate(d) {
-    var month = d.getMonth() + 1;
-    var day = d.getDate();
-    var output = d.getFullYear() + '-' +
-        (month < 10 ? '0' : '') + month + '-' +
-        (day < 10 ? '0' : '') + day  ;
-    document.getElementById('date').textContent = output;
-
-}
-function setMap() {
-    //載入openstreetmap圖資
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(elmap);
 }
 function addMarker(pharmacy)
 {
@@ -245,8 +249,8 @@ function OpenPath(e)
     }
     if (e.target.id ==='btnPath')
     {
-        let lat = e.target.dataset.lat;
-        let lng = e.target.dataset.lng;
+        let lat = Number(e.target.dataset.lat);
+        let lng = Number(e.target.dataset.lng);
         markerOpen(lat, lng);
     }
     else
@@ -256,10 +260,16 @@ function OpenPath(e)
     }
     
 }
-menuIcon.addEventListener('click', function () {
-    elContent.classList.toggle('close');
+//#endregion
+
+//#region 事件
+//隱藏與顯示side bar
+elMenuIcon.addEventListener('click', function () {
+    elSideBar.classList.toggle('hide');
+    elMapContent.classList.toggle('hide');
 })
 btnSearch.addEventListener('click', updateView)
-mapList.addEventListener('click', OpenPath)
-
+//點選各藥局資訊裡icon的事件
+elMapList.addEventListener('click', OpenPath)
+//#endregion
 

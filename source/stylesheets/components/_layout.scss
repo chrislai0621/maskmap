@@ -39,41 +39,43 @@ body{
         height:100%;
         transform: translateX(0px); 
         background-color: white;
+         &.hide {
+                   transform: translateX(0%);
+                    @include pad(){
+                     transform: translateX(-100%);
+                    }
+                }
         }
         .map-content-main
         {
-             position: relative;
-            width: 100%;
+            position: relative;
             height:100%; 
-            transform: translateX(255px);
             background-color: white;
-
+            max-width: calc(100% - 260px);
+            transform: translateX(260px);
+            transition: all 0.5s;
+            &.hide {
+                transform: translateX(0);
+                max-width: 100%;
+            }
             .main-menu-icon
             {
                 position: absolute;
                 background-color: theme-color('primary');
                 color:white;
-                z-index:3;
+                z-index:1000;
                 font-weight: 300;
                 text-align:center;    
-                width: 49px ;
-                height: 17px;
-                padding:2px;
-                top:0;
-                left:45%;    
-                border-radius: 0px 0px 5px 5px;    
-                
-                @include pad()
-                {
-                    width: 17px ;
-                    height: 49px;
-                    line-height: 49px;
-                    border-radius: 0px 5px 5px 0px;
-                    padding:0px;
-                    top:90px;
-                    left:0;         
-                }
+                width: 17px ;
+                height: 49px;
+                line-height: 49px;
+                border-radius: 0px 5px 5px 0px;
+                padding:0px;
+                top:90px;
+                left:0;                 
+               
             }
+            
 
         }
         

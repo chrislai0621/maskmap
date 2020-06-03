@@ -12,6 +12,7 @@
     <meta property="og:url" content="#" />
     <meta property="og:title" content="口罩地圖資訊" />
     <meta property="og:description" content="來查查你家附近剩餘多少口罩吧" />
+    <link rel="icon" href="images/mask.ico">
     <title>口罩地圖</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
@@ -20,9 +21,9 @@
 
 <body>
     <div class="d-flex  flex-column flex-md-row map">
-        <div class="map-title mr-8">
-            <div class="display-4 text-dark mb-9">Mask Map</div>
-            <div class="display-3 text-dark text-center font-weight-bold letter-spacing-18px pb-12"><span
+        <div class="map-title mr-md-8">
+            <div class="display-4 text-dark mb-md-9 d-none d-md-block">Mask Map</div>
+            <div class="display-3 text-dark text-center font-weight-bold letter-spacing-18px pb-md-12 pb-5"><span
                     class="text-primary">口罩</span>地圖</div>
         </div>
         <div class="map-content">
@@ -47,10 +48,9 @@
                 <div id="map-list">
                 </div>               
             </div>
-            <div class="map-content-main">
-                <div class="main-menu-icon  d-none d-md-block"><i class="fas fa-chevron-right"></i></div>
-                <div class="main-menu-icon  d-block d-md-none"><i class="fas fa-chevron-down"></i></div>
+            <div class="map-content-main">               
                 <div id="mapId"></div>
+                <div class="main-menu-icon"><i class="fas fa-chevron-right"></i></div>
             </div>
         </div>
         <script src="javascripts/vendor.js"></script>
