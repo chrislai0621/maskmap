@@ -115,8 +115,15 @@ function setMap() {
     //載入openstreetmap圖資
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 16,
-        attribution: 'Chris makes'
+        attribution: '作者:Chris 設計師:Wendy'
     }).addTo(elmap);
+    // 使用 control.locate 套件
+    L.control
+        .locate({
+            showPopup: false,
+        })
+        .addTo(map)
+        .start();
 }
 //#endregion
 
