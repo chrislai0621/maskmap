@@ -7,6 +7,7 @@ var elSideBar = document.querySelector('.map-content-aside');
 var elMapContent = document.querySelector('.map-content-main');
 var btnSearch = document.querySelector('.btn-search');
 var elMapList = document.getElementById('map-list');
+var elSearchName = document.querySelector('.search-name');
 //設定一個地圖，將地圖定位在#mapId這個div上
 //先定位在center的經緯度，zoom在15
 var elmap = L.map('mapId', {
@@ -115,7 +116,7 @@ function setMap() {
     //載入openstreetmap圖資
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 16,
-        attribution: '作者:Chris 設計師:Wendy'
+        attribution: 'Developer:Chris , Designer:Wendy'
     }).addTo(elmap);
     // 使用 control.locate 套件
     L.control
@@ -129,9 +130,9 @@ function setMap() {
 
 //#region 處理畫面的method
 function updateView() {    
-    let searchName = document.querySelector('.search-name').value;
-    let htmlStr = '';
     
+    let htmlStr = '';
+    let searchName = elSearchName.value;
     if (searchName === '') {
         alert('請輸入搜尋條件');
         return;
@@ -175,6 +176,14 @@ function updateView() {
          
     }
     elMapList.innerHTML = htmlStr;
+}
+function updaeViewKeyUp(e)
+{
+    //console.log(e.keyCode + ',type' + typeof (e.keyCode));
+    if (e.keyCode ===13)//按下enter鍵
+    {
+        updateView();
+    }
 }
 function getClassName(qty) {
     let className = 'remaining-zero';
@@ -248,7 +257,7 @@ function markerOpen (lat, lng) {
         }
     });
 };
-function OpenPath(e)
+function openPath(e)
 {
     e.preventDefault();
     if (e.target.nodeName !== 'I') {
@@ -277,6 +286,7 @@ elMenuIcon.addEventListener('click', function () {
 })
 btnSearch.addEventListener('click', updateView)
 //點選各藥局資訊裡icon的事件
-elMapList.addEventListener('click', OpenPath)
+elMapList.addEventListener('click', openPath)
+elSearchName.addEventListener('keyup',updaeViewKeyUp);
 //#endregion
 
