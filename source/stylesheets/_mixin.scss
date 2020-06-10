@@ -1,31 +1,31 @@
 @mixin destop-below{
 	@media (min-width: 1024px){
-		@content
+		@content;
 	}
 }
 @mixin pad{
 	@media (min-width: 768px){
-		@content
+		@content;
 	}
 }
 @mixin iphone{
 	@media (min-width: 568px){
-		@content
+		@content;
 	}
 }
 @mixin iphone6plus{
 	@media (min-width: 414px){
-		@content
+		@content;
 	}
 }
 @mixin mobile480{
 	@media (min-width: 480px){
-		@content
+		@content;
 	}
 }
 @mixin iphone5{
 	@media (min-width: 320px){
-		@content
+		@content;
 	}
 }
 

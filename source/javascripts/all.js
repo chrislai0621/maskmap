@@ -1,7 +1,7 @@
 
 //#region 宣告變數與element
-var _data = []; //api下載的資料
-var _date = new Date();
+var data = []; //api下載的資料
+var date = new Date();
 var elMenuIcon = document.querySelector('.main-menu-icon');
 var elSideBar = document.querySelector('.map-content-aside');
 var elMapContent = document.querySelector('.map-content-main');
@@ -22,8 +22,8 @@ init();
 //#region  init初始化
 function init() {
     getData();
-    setDate(_date);
-    setChineseDayAndID(_date.getDay());
+    setDate(date);
+    setChineseDayAndID(date.getDay());
     setMap();
 }
 //拉口罩api資料回來
@@ -33,17 +33,17 @@ function getData() {
     xhr.send(null); //ture非同步，不會等資料傳回來，就讓程式往下跑，等到回傳才會自動回傳
     //readystate = 4時才會觸發onload
     xhr.onload = function () {
-        if (xhr.status == 200) {
+        if (xhr.status === 200) {
             let xhrData = JSON.parse(xhr.responseText);
             let records = xhrData.features;
             for (let i = 0; i < records.length; i++) {
                 let pharmacy = generatePharmacy(records[i].properties, records[i].geometry);
-                _data.push(pharmacy);
+                data.push(pharmacy);
                 addMarker(pharmacy)
             }
             elmap.addLayer(markers);
-            //console.log('getData =' + _data);
-            if (_data.length == 0) {
+            //console.log('getData =' + data);
+            if (data.length === 0) {
                 console.log('資料取回有誤');
             }
         }
@@ -137,8 +137,8 @@ function updateView() {
         alert('請輸入搜尋條件');
         return;
     }
-   // console.log('updateView='+ _data);
-    let  pharmacyData = _data.filter(element =>
+   // console.log('updateView='+ data);
+    let  pharmacyData = data.filter(element =>
         element.address.match(searchName) || element.name.match(searchName)
     );
 
@@ -151,7 +151,7 @@ function updateView() {
            
             htmlStr += `<div class="p-5 border-bottom">
                 <div class="d-flex">
-                    <div class="h4 font-weight-bold">${ pharmacy.name }   </div>
+                    <div class="h4 font-weight-bold">${pharmacy.name}   </div>
                     <a class="h4 ml-auto" href="#"  >
                         <i class="icon fas fa-map-marker-alt"  id="btnPath" data-lat="${pharmacy.coordinates[1]}" data-lng="${pharmacy.coordinates[0]}"></i>
                     </a>
@@ -159,17 +159,17 @@ function updateView() {
                         <i class="icon fas fa-location-arrow" data-address="${pharmacy.address}"></i>
                     </a>
                 </div>
-                <div class="h5">${ pharmacy.address}</div>
-                <div class="h5">${ pharmacy.phone}</div>
-                <div class="h5">${ pharmacy.note }</div>                         
+                <div class="h5">${pharmacy.address}</div>
+                <div class="h5">${pharmacy.phone}</div>
+                <div class="h5">${pharmacy.note }</div>                         
                 <div class="d-flex justify-content-between">
-                    <div class="remaining ${ adultClass }">
+                    <div class="remaining ${adultClass}">
                         <div class="h6">成人口罩</div>
                         <div class="h4">${ adultQty }</div>
                     </div>
-                    <div class="remaining ${ childClass }">
+                    <div class="remaining ${childClass}">
                         <div class="h6">兒童口罩</div>
-                        <div class="h4">${ childQty }</div>
+                        <div class="h4">${childQty}</div>
                     </div>
                 </div>
             </div>` 
@@ -220,7 +220,7 @@ function addMarker(pharmacy)
         shadowSize: [41, 41]
     });
     let maskIcon = blueIcon; 
-    if (adultQty == 0) {
+    if (adultQty === 0) {
         maskIcon = grayIcon;
     } 
     markers.addLayer(L.marker([pharmacy.coordinates[1]
